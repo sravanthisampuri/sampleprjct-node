@@ -6,7 +6,10 @@ let addRequestDetails = require('./controller')
 
 router.get('/profiledetails/:id',profileController.profileDetails)
 router.get('/userlistDetails',userlistDetails.userDetails)
-router.post('/addRequest',addRequestDetails.addRequest)
+router.post('/addRequest',addRequestDetails.addRequest);
+router.post('/confirmRequest',addRequestDetails.confirmRequest);
+router.post('/getFriendsList',addRequestDetails.getFiendsList);
+
 
 
 
