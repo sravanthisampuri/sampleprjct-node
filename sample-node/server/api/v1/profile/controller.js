@@ -9,11 +9,42 @@ let profileDetails=(req,res)=>{
         }
     ).catch(
         (error)=>{
-            res.status(500).json({ status : true , message :"Error While fetching Details"}); 
+            res.status(500).json({ status : false , message :"Error While fetching Details"}); 
         }
     )
     }
+
+    let userDetails =(req,res) =>{
+        console.log(req)
+        profileCollection.find()
+        .then(
+            (response)=>{
+                res.status(200).json({ status : true , message :"Successfully Fetched Details" , userData :response   });
+
+            }
+        ).catch(
+            (error)=>{
+                res.status(500).json({ status : false , message :"Error While fetching Details"}); 
+            }
+        )
+    }
+
+    let addRequest = (req,res) =>{
+        console.log(req)
+        profileCollection.findById({_id:req.params.id})
+        .then(
+            (response)=>{   
+                res.status(200).json({ status : true , message :"Successfully Fetched Details" , userData :response   });
+            }
+        ).catch(
+            (error)=>{
+                res.status(500).json({ status : false , message :"Error While fetching Details"}); 
+            }
+        )
+    }
 module.exports = {
-    profileDetails
+    profileDetails,
+    userDetails,
+    addRequest
   
 }
