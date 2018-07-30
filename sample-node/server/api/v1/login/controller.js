@@ -1,6 +1,6 @@
 // let mongoose = require('mongoose');
-// let jwt = require('jsonwebtoken')
-// let config = require('../../../config/config')
+let jwt = require('jsonwebtoken')
+let config = require('../../../config/config')
 
 let logCollection = require('../login/model');
 
@@ -11,7 +11,15 @@ let loginDetails =(req,res)=>{
             (response)=>{
                 /* console.log(response) */
                 if(response.password == req.body.password){
-                    res.status(200).json({ status : true , message :"Successfully loggedin" , user :response   }); 
+                    jwt.sign({ id: response._id },config.jwt.secret,function(err,userToken){
+                        if(err){
+                            throw err;
+                        }else{
+                            res.status(200).json({ status : true , message :"Successfully loggedin" , user :response ,userToken : userToken  }); 
+                        }
+                    })
+                        
+                     /* res.status(200).json({ status : true , message :"Successfully loggedin" , user :response   });  */
                 }else{
                     res.status(200).json({ status : false , message :"Wrong Credentials"   });  
                 }
